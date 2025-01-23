@@ -1,64 +1,54 @@
 //Tik-Tak-Toe
+let humanScore = 0;
+let computerScore = 0;
 
 const choice = ['Rock', 'Paper', 'Scissors'];
 
-//Computer random selection
-function getComputerChoice() {
-    return choice[Math.floor(Math.random() * 3)];
-} 
+function playRound() {
+    //Get random choice for computer and have human based on button pushed
+    computerChoice = choice[Math.floor(Math.random() * 3)];
+    humanChoice = event.target.textContent;
 
-function getHumanChoice(){
-    let userSelection = prompt("Please select 0 for Rock, 1 for Paper, or 2 for Scissors");
-    return choice[userSelection];
-}
+    let outcome = '';
+    const div = document.querySelector('div');
 
-function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice){
-        console.log(`You both selected ${humanChoice}. Tie!`);
+        outcome = `You both selected ${humanChoice}. Tie!`;
     } else if (humanChoice === 'Rock') {
         if (computerChoice === 'Scissors') {
-            console.log('Rock beats Scissors. You won!');
+            outcome = 'Rock beats Scissors. You won!';
             humanScore ++;
         } else {
-        console.log('Paper beats Rock. You lose');
+        outcome = 'Paper beats Rock. You lose';
         computerScore ++;
         }
     } else if (humanChoice === 'Scissors'){
         if (computerChoice === 'Paper') {
-            console.log('Scissors beat Paper. You won!');
+            outcome = 'Scissors beat Paper. You won!';
             humanScore ++;
         } else {
-        console.log('Rock beats Scissors. You lose');
+        outcome = 'Rock beats Scissors. You lose';
         computerScore ++;
         }
     } else if (humanChoice == 'Paper'){
         if (computerChoice === 'Rock') {
-            console.log('Paper beats Rock. You won!');
+            outcome = 'Paper beats Rock. You won!';
             humanScore ++;
         } else {
-        console.log('Scissors beat Paper. You lose');
+        outcome = 'Scissors beat Paper. You lose';
         computerScore ++;
         }
     }
-    console.log(`Current Score is. Human: ${humanScore} - Computer: ${computerScore}`)
-}
-
-function playGame(){
-    humanScore = 0;
-    computerScore = 0;
-
-    while (humanScore < 5 && computerScore < 5) {
-        playRound(getHumanChoice(), getComputerChoice())
+    outcome += ` The current score is - Human: ${humanScore}, Computer: ${computerScore}\n`
+    if (humanScore === 5 || computerScore === 5) {
+        if (humanScore === 5){
+            outcome += 'Human wins!';
+        } else {
+            outcome += "Computer Wins"
+        }
     }
-
-    if (humanScore === 5) {
-        console.log('Human wins!');
-    } else {
-        console.log('Computer wins!');
-    }
+    div.textContent = div.textContent + outcome;
 }
-
-playGame();
 
 
 
